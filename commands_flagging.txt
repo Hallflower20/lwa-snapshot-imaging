@@ -1,0 +1,18 @@
+conda activate /opt/devel/pipeline/envs/py38_orca
+cd /opt/devel/pipeline/distributed-pipeline
+pipenv shell
+cd $HOME
+/home/mmanders/scripts/gen_model_ms_stokes.py $MS_FILE
+exit
+cd $DATA_DIR
+conda activate deployment
+casa
+antenna = "79,150,201,224,229,215,221,242,246,272,294,299,332,334,33,34,37,38,41,42,44,92,51,21,190,154,56,29,28,222,126,127"
+flagdata($MS_FILE, antenna = antenna, datacolumn = "all")
+clearcal($MS_FILE, addmodel=True)
+ft($MS_FILE, $CL_FILE, usescratch=True)
+bandpass($MS_FILE, $BCAL_FILE, uvrange='>15lambda',fillgaps=1)
+applycal($MS_FILE, gaintable=[$BCAL_FILE], flagbackup=False)
+flagdata($MS_FILE, mode = "rflag", antenna = antenna)
+exit
+/opt/bin/wsclean -pol I -multiscale -multiscale-scale-bias 0.9 -size 4096 4096 -scale 0.03 -niter 10000 -mgain 0.85 -weight briggs 0 -name 20230820_020006_73MHz 20230820_020006_73MHz.ms

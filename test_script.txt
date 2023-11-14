@@ -1,0 +1,4 @@
+python snapshot_image.py /fast/xhall/snapshots/ten_mintues/20230820_050010_73MHz.ms scratch/dir/ image/dir/ 23,24,25
+python snapshot_image.py /fast/xhall/snapshots/ten_mintues/20230820_050010_73MHz.ms /fast/xhall/snapshots/ten_mintues /fast/xhall/snapshots/tm_images 79,150,201,224,229,215,221,242,246,272,294,299,332,334,33,34,37,38,41,42,44,92,51,21,190,154,56,29,28,222,126,127
+
+sh im_maker.sh /fast/xhall/snapshots/tm_images/20230820_050010_73MHz /fast/xhall/snapshots/ten_mintues/20230820_050010_73MHz.ms
